@@ -33,10 +33,10 @@ ROUTES
   "6": "POST /recipes",  
   "7": "GET /mealplans",
   "8": "POST /mealplans",   
-  "9": "GET /user",
-  "10": "POST /user/register",
-  "11": "POST /user/login",
-  "12": "POST /user/logout"
+  "9": "GET /users",
+  "10": "POST /users/register",
+  "11": "POST /users/login",
+  "12": "POST /users/logout"
 }
 
 ----
