@@ -1,11 +1,13 @@
 const testGroceryData = require("./test/testData/testGroceryData");
 const testRecipeData = require("./test/testData/testRecipeData");
+const testMealPlanData = require("./test/testData/testMealPlanData");
 const testUserData = require("./test/testData/testUserData");
 const request = require("supertest");
 const app = require("./app");
 const { teardownMongoose } = require("./test/mongoose");
 const Grocery = require("./models/grocery.model");
 const Recipe = require("./models/recipe.model");
+const MealPlan = require("./models/mealplan.model");
 const User = require("./models/user.model");
 let signedInAgent;
 
@@ -16,6 +18,7 @@ describe("users route", () => {
     await User.create(testUserData);
     await Grocery.create(testGroceryData);
     await Recipe.create(testRecipeData);
+    await MealPlan.create(testMealPlanData);
     signedInAgent = request.agent(app);
     const { text } = await signedInAgent
       .post("/users/login")
@@ -27,6 +30,7 @@ describe("users route", () => {
   afterEach(async () => {
     await Grocery.deleteMany();
     await Recipe.deleteMany();
+    await MealPlan.deleteMany();
     await User.deleteMany();
   });
 
@@ -151,6 +155,37 @@ describe("users route", () => {
 
     const { body } = await signedInAgent
       .put("/users/754aece9-64bf-42ab-b91c-bb65e2db3a37/recipes")
+      .send(sentInfo)
+      .expect(201);
+    expect(body).toEqual(expectedInfo);
+  });
+
+  it("9) GET /users/:id/mealplans should return 200 with mealplans for user", async () => {
+    const expectedInfo = [
+      {
+        userId: "754aece9-64bf-42ab-b91c-bb65e2db3a37",
+        concatenatedMeals:
+          "mushroom toasties_pizza_cabbage rice;mushroom toasties_pizza_cabbage rice;mushroom toasties_pizza_cabbage rice;mushroom toasties_pizza_cabbage rice;mushroom toasties_pizza_cabbage rice;mushroom toasties_pizza_cabbage rice;mushroom toasties_pizza_cabbage rice;"
+      }
+    ];
+    const { body } = await signedInAgent
+      .get("/users/754aece9-64bf-42ab-b91c-bb65e2db3a37/mealplans")
+      .expect(200);
+    expect(body).toEqual(expectedInfo);
+  });
+
+  it("10) POST /users/:id/mealplans should return 201 with new mealplans for user", async () => {
+    const expectedInfo = {
+      userId: "754aece9-64bf-42ab-b91c-bb65e2db3a37",
+      concatenatedMeals: "1_2_3;1_2_3;1_2_3;1_2_3;1_2_3;1_2_3;1_2_3;"
+    };
+
+    const sentInfo = {
+      concatenatedMeals: "1_2_3;1_2_3;1_2_3;1_2_3;1_2_3;1_2_3;1_2_3;"
+    };
+
+    const { body } = await signedInAgent
+      .post("/users/754aece9-64bf-42ab-b91c-bb65e2db3a37/mealplans")
       .send(sentInfo)
       .expect(201);
     expect(body).toEqual(expectedInfo);

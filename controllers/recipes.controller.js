@@ -73,7 +73,6 @@ const findAndUpdateRecipes = (req, res, next) => {
         res.status(201).json(output);
       })
       .catch(err => {
-        console.log(err);
         next(err);
       });
   }
