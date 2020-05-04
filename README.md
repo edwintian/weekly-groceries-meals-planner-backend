@@ -14,7 +14,34 @@ There will be a mealplanner link with a form to fill up for all the meals in the
 When the form is submitted via POST, we will subtract the ingredients from the DB in the backend, then inform the user if there is sufficient ingredients in the fridge.
 
 Users will not be allowed to POST again to mealplanner link until the week is over (date tracking?).
-In the meantime users will be able to retrieve the meal plan (saved form function?).
+In the meantime users will be able to GET the meal plan (saved form function?).
+Before each user POST, we should delete the previous mealplan
 
 There will be login/register links for user/new user.
 All other routes should be protected unless user is authenticated (login) and authorized using jwt.
+
+----
+ROUTES
+----
+{
+  "0": "GET /",
+  "1": "GET /groceries",
+  "2": "PUT /groceries",
+  "3": "POST /groceries",
+  "4": "GET /recipes",
+  "5": "PUT /recipes",
+  "6": "POST /recipes",  
+  "7": "GET /mealplans",
+  "8": "POST /mealplans",   
+  "9": "GET /user",
+  "10": "POST /user/register",
+  "11": "POST /user/login",
+  "12": "POST /user/logout"
+}
+
+----
+MODELS
+----
+Groceries: userId|itemName|quantity|unit
+Recipes: userId|recipeName|concatenatedIngredients|IsBreakfast
+MealPlans: userId|concatenatedMeals
