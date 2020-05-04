@@ -1,0 +1,37 @@
+{
+  "name": "backend-project",
+  "version": "1.0.0",
+  "description": "---- IDEA ----",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "testc": "jest --coverage",
+    "start": "node index.js",
+    "start:dev": "nodemon index.js"
+  },
+  "jest": {
+    "globalSetup": "./test/setup.js",
+    "globalTeardown": "./test/teardown.js",
+    "testEnvironment": "node"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.11"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.19.0",
+    "jest": "^25.5.4",
+    "mongodb-memory-server": "^6.5.2",
+    "nodemon": "^2.0.3",
+    "supertest": "^4.0.2"
+  }
+}
