@@ -42,8 +42,8 @@ ROUTES
 ----
 MODELS
 ----
-Groceries: userId|itemName|quantity|unit
-Recipes: userId|recipeName|concatenatedIngredients|IsBreakfast
+Groceries: userIdWithitemName|quantity|unit
+Recipes: userIdWithrecipeName|concatenatedIngredients|IsBreakfast
 MealPlans: userId|concatenatedMeals
 
 ----

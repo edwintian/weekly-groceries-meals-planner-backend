@@ -14,32 +14,32 @@ describe("users route", () => {
     await User.create(testUserData);
     await Grocery.create(testGroceryData);
     signedInAgent = request.agent(app);
-    const {text} = await signedInAgent.post("/users/login").send(testUserData).expect(200);
+    const { text } = await signedInAgent
+      .post("/users/login")
+      .send(testUserData)
+      .expect(200);
     expect(text).toEqual("You are now logged in!");
   });
 
   afterEach(async () => {
     await Grocery.deleteMany();
     await User.deleteMany();
-    //jest.resetAllMocks();
   });
 
   it("1) GET /users should return 200 and user info", async () => {
     const expectedUserInfo = {
-        "userId": "754aece9-64bf-42ab-b91c-bb65e2db3a37",
-        "username": "humburn",
-      };
-    const { body: userInfo } = await signedInAgent
-      .get("/users")
-      .expect(200);
+      userId: "754aece9-64bf-42ab-b91c-bb65e2db3a37",
+      username: "humburn"
+    };
+    const { body: userInfo } = await signedInAgent.get("/users").expect(200);
     expect(userInfo).toEqual(expectedUserInfo);
   });
 
   it("2) POST /users/logout should return 200 with cookie cleared", async () => {
     const expectedUserInfo = {
-        "userId": "754aece9-64bf-42ab-b91c-bb65e2db3a37",
-        "username": "humburn",
-      };
+      userId: "754aece9-64bf-42ab-b91c-bb65e2db3a37",
+      username: "humburn"
+    };
     const response = await request(app)
       .post("/users/logout")
       .send(expectedUserInfo)
@@ -49,15 +49,35 @@ describe("users route", () => {
   });
 
   it("3) GET /users/:id/groceries should return 200 with groceries for user", async () => {
-    const expectedInfo = [{
-      userIdWithItemName: "754aece9-64bf-42ab-b91c-bb65e2db3a37_mushrooms",
-      quantity: 2,
-      unit: "packets"
-    }];
+    const expectedInfo = [
+      {
+        userIdWithItemName: "mushrooms",
+        quantity: 2,
+        unit: "packets"
+      }
+    ];
     const { body } = await signedInAgent
       .get("/users/754aece9-64bf-42ab-b91c-bb65e2db3a37/groceries")
       .expect(200);
     expect(body).toEqual(expectedInfo);
   });
 
+  it("4) POST /users/:id/groceries should return 201 with new groceries for user", async () => {
+    const expectedInfo = {
+      userIdWithItemName: "cheese",
+      quantity: 1,
+      unit: "piece"
+    };
+    const sentInfo = {
+      itemName: "cheese",
+      quantity: 1,
+      unit: "piece"
+    };
+
+    const { body } = await signedInAgent
+      .post("/users/754aece9-64bf-42ab-b91c-bb65e2db3a37/groceries")
+      .send(sentInfo)
+      .expect(201);
+    expect(body).toEqual(expectedInfo);
+  });
 });

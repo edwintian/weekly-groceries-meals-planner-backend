@@ -30,7 +30,16 @@ const createGroceries = (req, res, next) => {
       unit: postContent.unit
     })
       .then(data => {
-        res.status(201).json(data);
+        let output = {};
+        for (const key in data.toObject()) {
+          if (key != "_id" && key != "__v") {
+            output[key] = data[key];
+          }
+          if (key === "userIdWithItemName") {
+            output[key] = data[key].split("_")[1];
+          }
+        }
+        res.status(201).json(output);
       })
       .catch(err => next(err));
   }
@@ -54,23 +63,33 @@ const findAndUpdateGroceries = (req, res, next) => {
       }
     )
       .then(data => {
-        res.status(201).json(data);
+        let output = {};
+        for (const key in data.toObject()) {
+          if (key != "_id" && key != "__v") {
+            output[key] = data[key];
+          }
+          if (key === "userIdWithItemName") {
+            output[key] = data[key].split("_")[1];
+          }
+        }
+        res.status(201).json(output);
       })
       .catch(err => next(err));
   }
 };
 
 const getGroceries = (req, res, next) => {
-
   const filterByUserId = async userIdWithItemName => {
     const regex = new RegExp(userIdWithItemName, "gi");
-    const filteredResults = await Grocery.find({ userIdWithItemName: regex }).select("-__v -_id");
+    const filteredResults = await Grocery.find({
+      userIdWithItemName: regex
+    }).select("-__v -_id");
     return filteredResults;
   };
 
   filterByUserId(req.user.id)
     .then(data => {
-      console.log("data is ", data);
+      data.map((object) => object.userIdWithItemName = object.userIdWithItemName.split("_")[1]);
       res.json(data);
     })
     .catch(err => next(err));

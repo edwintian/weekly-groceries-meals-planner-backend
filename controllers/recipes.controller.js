@@ -8,8 +8,7 @@ const RecipeSchema = Joi.object({
   concatenatedIngredients: Joi.number()
     .min(1)
     .required(),
-  IsBreakfast: Joi.boolean()
-    .required()
+  IsBreakfast: Joi.boolean().required()
 });
 
 const createRecipes = (req, res, next) => {
@@ -28,7 +27,16 @@ const createRecipes = (req, res, next) => {
       IsBreakfast: postContent.IsBreakfast
     })
       .then(data => {
-        res.status(201).json(data);
+        let output = {};
+        for (const key in data.toObject()) {
+          if (key != "_id" && key != "__v") {
+            output[key] = data[key];
+          }
+          if (key === "userIdWithRecipeName") {
+            output[key] = data[key].split("_")[1];
+          }
+        }
+        res.status(201).json(output);
       })
       .catch(err => next(err));
   }
@@ -52,24 +60,36 @@ const findAndUpdateRecipes = (req, res, next) => {
       }
     )
       .then(data => {
-        res.status(201).json(data);
+        let output = {};
+        for (const key in data.toObject()) {
+          if (key != "_id" && key != "__v") {
+            output[key] = data[key];
+          }
+          if (key === "userIdWithRecipeName") {
+            output[key] = data[key].split("_")[1];
+          }
+        }
+        res.status(201).json(output);
       })
       .catch(err => next(err));
   }
 };
 
 const getRecipes = (req, res, next) => {
-    const filterByUserId = async userIdWithRecipeName => {
-      const regex = new RegExp(userIdWithRecipeName, "gi");
-      const filteredResults = await Recipe.find({ userIdWithRecipeName: regex }).select("-__v -_id");
-      return filteredResults;
-    };
+  const filterByUserId = async userIdWithRecipeName => {
+    const regex = new RegExp(userIdWithRecipeName, "gi");
+    const filteredResults = await Recipe.find({
+      userIdWithRecipeName: regex
+    }).select("-__v -_id");
+    return filteredResults;
+  };
 
-    filterByUserId(req.user.id)
-      .then(data => {
-        res.json(data);
-      })
-      .catch(err => next(err));
+  filterByUserId(req.user.id)
+    .then(data => {
+      data.map((object) => object.userIdWithRecipeName = object.userIdWithRecipeName.split("_")[1]);
+      res.json(data);
+    })
+    .catch(err => next(err));
 };
 
 module.exports = {

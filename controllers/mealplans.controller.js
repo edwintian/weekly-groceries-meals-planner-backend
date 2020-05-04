@@ -22,14 +22,20 @@ const deleteAndCreateMealPlan = async (req, res, next) => {
       concatenatedMeals: postContent.concatenatedMeals
     })
       .then(data => {
-        res.status(201).json(data);
+        let output = {};
+        for (const key in data.toObject()) {
+          if (key != "_id" && key != "__v") {
+            output[key] = data[key];
+          }
+        }
+        res.status(201).json(output);
       })
       .catch(err => next(err));
   }
 };
 
 const getMealPlan = (req, res, next) => {
-  MealPlan.find({ "userId": req.user.id })
+  MealPlan.find({ userId: req.user.id })
     .select("-__v -_id")
     .then(data => {
       res.json(data);
