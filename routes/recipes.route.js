@@ -5,11 +5,12 @@ const {
   createRecipes,
   findAndUpdateRecipes
 } = require("../controllers/Recipes.controller");
+const {requireJsonContent, protectRoute} = require("../utils/helper");
 
-router.get("/", getRecipes);
+router.get("/", protectRoute, getRecipes);
 
-router.post("/", createRecipes);
+router.post("/", protectRoute, requireJsonContent, createRecipes);
 
-router.put("/", findAndUpdateRecipes);
+router.put("/", protectRoute, requireJsonContent, findAndUpdateRecipes);
 
 module.exports = router;

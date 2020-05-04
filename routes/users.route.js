@@ -16,4 +16,13 @@ router.post("/login", requireJsonContent, validateLoginAndCreateJWTCookie);
 
 router.post("/logout", requireJsonContent, clearCookieAndDisplayLogoutMsg);
 
+const groceriesRouter = require("./groceries.route");
+router.use("/:userId/groceries", groceriesRouter);
+
+const recipesRouter = require("./recipes.route");
+router.use("/:userId/recipes", recipesRouter);
+
+const mealPlansRouter = require("./mealplans.route");
+router.use("/:userId/mealplans", mealPlansRouter);
+
 module.exports = router;

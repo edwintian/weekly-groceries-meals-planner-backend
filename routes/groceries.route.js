@@ -5,11 +5,12 @@ const {
   createGroceries,
   findAndUpdateGroceries
 } = require("../controllers/groceries.controller");
+const {requireJsonContent, protectRoute} = require("../utils/helper");
 
-router.get("/", getGroceries);
+router.get("/", protectRoute, getGroceries);
 
-router.post("/", createGroceries);
+router.post("/", protectRoute, requireJsonContent, createGroceries);
 
-router.put("/", findAndUpdateGroceries);
+router.put("/", protectRoute, requireJsonContent, findAndUpdateGroceries);
 
 module.exports = router;

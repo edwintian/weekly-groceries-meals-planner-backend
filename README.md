@@ -24,19 +24,19 @@ All other routes should be protected unless user is authenticated (login) and au
 ROUTES
 ----
 {
-  "0": "GET /",
-  "1": "GET /groceries",
-  "2": "PUT /groceries",
-  "3": "POST /groceries",
-  "4": "GET /recipes",
-  "5": "PUT /recipes",
-  "6": "POST /recipes",  
-  "7": "GET /mealplans",
-  "8": "POST /mealplans",   
-  "9": "GET /users",
-  "10": "POST /users/register",
-  "11": "POST /users/login",
-  "12": "POST /users/logout"
+  "0": "GET /",  
+  "1": "GET /users",
+  "2": "POST /users/register",
+  "3": "POST /users/login",
+  "4": "POST /users/logout",
+  "5": "GET /users/:id/groceries",
+  "6": "PUT /users/:id/groceries",
+  "7": "POST /users/:id/groceries",
+  "8": "GET /users/:id/recipes",
+  "9": "PUT /users/:id/recipes",
+  "10": "POST /users/:id/recipes",  
+  "11": "GET /users/:id/mealplans",
+  "12": "POST /users/:id/mealplans",   
 }
 
 ----
@@ -45,3 +45,5 @@ MODELS
 Groceries: userId|itemName|quantity|unit
 Recipes: userId|recipeName|concatenatedIngredients|IsBreakfast
 MealPlans: userId|concatenatedMeals
+
+mongoose ref populate
