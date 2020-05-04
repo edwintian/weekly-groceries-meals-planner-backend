@@ -26,7 +26,7 @@ describe("users route", () => {
 
   afterEach(async () => {
     await Grocery.deleteMany();
-    await Recipe.deleteMany();    
+    await Recipe.deleteMany();
     await User.deleteMany();
   });
 
@@ -118,41 +118,41 @@ describe("users route", () => {
     expect(body).toEqual(expectedInfo);
   });
 
-  // it("4) POST /users/:id/recipes should return 201 with new recipes for user", async () => {
-  //   const expectedInfo = {
-  //     userIdWithItemName: "cheese",
-  //     quantity: 1,
-  //     unit: "piece"
-  //   };
-  //   const sentInfo = {
-  //     itemName: "cheese",
-  //     quantity: 1,
-  //     unit: "piece"
-  //   };
-  //
-  //   const { body } = await signedInAgent
-  //     .post("/users/754aece9-64bf-42ab-b91c-bb65e2db3a37/groceries")
-  //     .send(sentInfo)
-  //     .expect(201);
-  //   expect(body).toEqual(expectedInfo);
-  // });
-  //
-  // it("5) PUT /users/:id/recipes should return 201 with new recipes for user", async () => {
-  //   const expectedInfo = {
-  //     userIdWithItemName: "mushrooms",
-  //     quantity: 1,
-  //     unit: "packets"
-  //   };
-  //   const sentInfo = {
-  //     itemName: "mushrooms",
-  //     quantity: 1,
-  //     unit: "packets"
-  //   };
-  //
-  //   const { body } = await signedInAgent
-  //     .put("/users/754aece9-64bf-42ab-b91c-bb65e2db3a37/groceries")
-  //     .send(sentInfo)
-  //     .expect(201);
-  //   expect(body).toEqual(expectedInfo);
-  // });
+  it("7) POST /users/:id/recipes should return 201 with new recipes for user", async () => {
+    const expectedInfo = {
+      userIdWithRecipeName: "cabbage rice",
+      concatenatedIngredients: "1_cabbage;2_mushrooms;3_rice",
+      IsBreakfast: false
+    };
+    const sentInfo = {
+      recipeName: "cabbage rice",
+      concatenatedIngredients: "1_cabbage;2_mushrooms;3_rice",
+      IsBreakfast: false
+    };
+
+    const { body } = await signedInAgent
+      .post("/users/754aece9-64bf-42ab-b91c-bb65e2db3a37/recipes")
+      .send(sentInfo)
+      .expect(201);
+    expect(body).toEqual(expectedInfo);
+  });
+
+  it("8) PUT /users/:id/recipes should return 201 with new recipes for user", async () => {
+    const expectedInfo = {
+      userIdWithRecipeName: "pizza",
+      concatenatedIngredients: "1_mushrooms;2_cheese",
+      IsBreakfast: false
+    };
+    const sentInfo = {
+      recipeName: "pizza",
+      concatenatedIngredients: "1_mushrooms;2_cheese",
+      IsBreakfast: false
+    };
+
+    const { body } = await signedInAgent
+      .put("/users/754aece9-64bf-42ab-b91c-bb65e2db3a37/recipes")
+      .send(sentInfo)
+      .expect(201);
+    expect(body).toEqual(expectedInfo);
+  });
 });

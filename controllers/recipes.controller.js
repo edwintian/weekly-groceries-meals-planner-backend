@@ -5,7 +5,7 @@ const RecipeSchema = Joi.object({
   recipeName: Joi.string()
     .min(3)
     .required(),
-  concatenatedIngredients: Joi.number()
+  concatenatedIngredients: Joi.string()
     .min(1)
     .required(),
   IsBreakfast: Joi.boolean().required()
@@ -51,7 +51,7 @@ const findAndUpdateRecipes = (req, res, next) => {
     next(err);
     //note that we should not have any more processing after calling next(err)
   } else {
-    const concatenatedUserWithItem = req.user.id + "_" + putContent.itemName;
+    const concatenatedUserWithItem = req.user.id + "_" + putContent.recipeName;
     Recipe.findOneAndUpdate(
       { userIdWithRecipeName: concatenatedUserWithItem },
       {
@@ -72,7 +72,10 @@ const findAndUpdateRecipes = (req, res, next) => {
         }
         res.status(201).json(output);
       })
-      .catch(err => next(err));
+      .catch(err => {
+        console.log(err);
+        next(err);
+      });
   }
 };
 
