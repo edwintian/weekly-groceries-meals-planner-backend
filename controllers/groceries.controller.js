@@ -60,7 +60,8 @@ const findAndUpdateGroceries = (req, res, next) => {
       {
         quantity: putContent.quantity,
         unit: putContent.unit
-      }
+      },
+      { new: true }
     )
       .then(data => {
         let output = {};

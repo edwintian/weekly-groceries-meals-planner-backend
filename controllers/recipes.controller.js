@@ -57,7 +57,8 @@ const findAndUpdateRecipes = (req, res, next) => {
       {
         concatenatedIngredients: putContent.concatenatedIngredients,
         IsBreakfast: putContent.IsBreakfast
-      }
+      },
+      { new: true }
     )
       .then(data => {
         let output = {};
