@@ -26,6 +26,7 @@ describe("users route", () => {
 
   afterEach(async () => {
     await Grocery.deleteMany();
+    await Recipe.deleteMany();    
     await User.deleteMany();
   });
 
