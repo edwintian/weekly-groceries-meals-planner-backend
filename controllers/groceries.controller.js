@@ -61,9 +61,16 @@ const findAndUpdateGroceries = (req, res, next) => {
 };
 
 const getGroceries = (req, res, next) => {
-  Grocery.find({ "userIdWithItemName": /"$req.user.id"/i })
-    .select("-__v -_id")
+
+  const filterByUserId = async userIdWithItemName => {
+    const regex = new RegExp(userIdWithItemName, "gi");
+    const filteredResults = await Grocery.find({ userIdWithItemName: regex }).select("-__v -_id");
+    return filteredResults;
+  };
+
+  filterByUserId(req.user.id)
     .then(data => {
+      console.log("data is ", data);
       res.json(data);
     })
     .catch(err => next(err));

@@ -59,12 +59,17 @@ const findAndUpdateRecipes = (req, res, next) => {
 };
 
 const getRecipes = (req, res, next) => {
-  Recipe.find({ "userIdWithRecipeName": /"$req.user.id"/i })
-    .select("-__v -_id")
-    .then(data => {
-      res.json(data);
-    })
-    .catch(err => next(err));
+    const filterByUserId = async userIdWithRecipeName => {
+      const regex = new RegExp(userIdWithRecipeName, "gi");
+      const filteredResults = await Recipe.find({ userIdWithRecipeName: regex }).select("-__v -_id");
+      return filteredResults;
+    };
+
+    filterByUserId(req.user.id)
+      .then(data => {
+        res.json(data);
+      })
+      .catch(err => next(err));
 };
 
 module.exports = {

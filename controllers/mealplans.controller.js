@@ -29,7 +29,7 @@ const deleteAndCreateMealPlan = async (req, res, next) => {
 };
 
 const getMealPlan = (req, res, next) => {
-  MealPlan.find({ "userId": /"$req.user.id"/i })
+  MealPlan.find({ "userId": req.user.id })
     .select("-__v -_id")
     .then(data => {
       res.json(data);

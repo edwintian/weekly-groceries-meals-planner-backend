@@ -48,4 +48,16 @@ describe("users route", () => {
     expect(response.headers["set-cookie"][0]).toMatch(/^token=/);
   });
 
+  it("3) GET /users/:id/groceries should return 200 with groceries for user", async () => {
+    const expectedInfo = [{
+      userIdWithItemName: "754aece9-64bf-42ab-b91c-bb65e2db3a37_mushrooms",
+      quantity: 2,
+      unit: "packets"
+    }];
+    const { body } = await signedInAgent
+      .get("/users/754aece9-64bf-42ab-b91c-bb65e2db3a37/groceries")
+      .expect(200);
+    expect(body).toEqual(expectedInfo);
+  });
+
 });
