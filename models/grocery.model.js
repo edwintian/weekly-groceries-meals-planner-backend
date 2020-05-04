@@ -1,19 +1,15 @@
 const mongoose = require("mongoose");
 
 const groceriesSchema = new mongoose.Schema({
-  userId: {
+  userIdWithItemName: {
     type: String,
+    minlength: 3,
+    unique: true,
     required: true,
-    minlength: 3,
-    unique: true
-  },
-  itemName: {
-    type: String,
-    minlength: 3,
-    required: true
   },
   quantity: {
     type: Number,
+    min: 1,
     required: true
   },
   unit: {

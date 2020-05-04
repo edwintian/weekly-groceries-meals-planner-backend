@@ -20,15 +20,6 @@ app.get("", (req, res, next) => {
 const usersRouter = require("./routes/users.route");
 app.use("/users", usersRouter);
 
-const groceriesRouter = require("./routes/groceries.route");
-app.use("/groceries", groceriesRouter);
-
-const recipesRouter = require("./routes/recipes.route");
-app.use("/recipes", recipesRouter);
-
-const mealPlansRouter = require("./routes/mealplans.route");
-app.use("/mealplans", mealPlansRouter);
-
 app.use(function(err, req, res, next) {
   res.status(err.statusCode || 500);
   res.send(`${err}`);

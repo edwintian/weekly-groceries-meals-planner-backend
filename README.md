@@ -24,7 +24,7 @@ All other routes should be protected unless user is authenticated (login) and au
 ROUTES
 ----
 {
-  "0": "GET /",  
+  "0": "GET /",
   "1": "GET /users",
   "2": "POST /users/register",
   "3": "POST /users/login",
@@ -34,9 +34,9 @@ ROUTES
   "7": "POST /users/:id/groceries",
   "8": "GET /users/:id/recipes",
   "9": "PUT /users/:id/recipes",
-  "10": "POST /users/:id/recipes",  
+  "10": "POST /users/:id/recipes",
   "11": "GET /users/:id/mealplans",
-  "12": "POST /users/:id/mealplans",   
+  "12": "POST /users/:id/mealplans",
 }
 
 ----
@@ -46,4 +46,9 @@ Groceries: userId|itemName|quantity|unit
 Recipes: userId|recipeName|concatenatedIngredients|IsBreakfast
 MealPlans: userId|concatenatedMeals
 
-mongoose ref populate
+----
+Project brief
+----
+1. There will be a demo on Friday after lunch.
+2. The demo should be shown on a deployed environment. Netlify, Express and MongoDb Atlas. 
+Please please remember don’t commit the mongo url of Atlas into github

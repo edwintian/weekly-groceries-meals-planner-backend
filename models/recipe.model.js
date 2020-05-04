@@ -1,16 +1,11 @@
 const mongoose = require("mongoose");
 
 const recipesSchema = new mongoose.Schema({
-  userId: {
+  userIdWithrecipeName: {
     type: String,
     required: true,
     minlength: 3,
     unique: true
-  },
-  recipeName: {
-    type: String,
-    minlength: 3,
-    required: true
   },
   concatenatedIngredients: {
     type: String,
