@@ -24,7 +24,7 @@ describe("users route", () => {
       .post("/users/login")
       .send(testUserData)
       .expect(200);
-    expect(text).toEqual("You are now logged in!");
+    expect(text).toContain("You are now logged in");
   });
 
   afterEach(async () => {

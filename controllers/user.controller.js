@@ -67,7 +67,7 @@ const validateLoginAndCreateJWTCookie = async (req, res, next) => {
       //secure: true, // use HTTPS
     });
 
-    res.send("You are now logged in!");
+    res.send("You are now logged in as " + user.userId);
   } catch (err) {
     if (err.message === "Login failed") {
       err.statusCode = 400;

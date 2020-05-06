@@ -90,7 +90,19 @@ const getGroceries = (req, res, next) => {
 
   filterByUserId(req.user.id)
     .then(data => {
-      data.map((object) => object.userIdWithItemName = object.userIdWithItemName.split("_")[1]);
+      data.map(
+        object =>
+          (object.userIdWithItemName = object.userIdWithItemName.split("_")[1])
+      );
+      res.json(data);
+    })
+    .catch(err => next(err));
+};
+
+const removeGroceries = (req, res, next) => {
+  const concatenatedUserWithItem = req.user.id + "_" + req.params.itemName;
+  Grocery.findOneAndDelete(concatenatedUserWithItem)
+    .then(data => {
       res.json(data);
     })
     .catch(err => next(err));
@@ -99,5 +111,6 @@ const getGroceries = (req, res, next) => {
 module.exports = {
   createGroceries,
   getGroceries,
-  findAndUpdateGroceries
+  findAndUpdateGroceries,
+  removeGroceries
 };
