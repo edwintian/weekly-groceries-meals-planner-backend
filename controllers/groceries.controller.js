@@ -100,10 +100,11 @@ const getGroceries = (req, res, next) => {
 };
 
 const removeGroceries = (req, res, next) => {
+  console.log(req.params);
   const concatenatedUserWithItem = req.user.id + "_" + req.params.itemName;
   Grocery.findOneAndDelete(concatenatedUserWithItem)
     .then(data => {
-      res.json(data);
+      res.status(201).json(data);
     })
     .catch(err => next(err));
 };
