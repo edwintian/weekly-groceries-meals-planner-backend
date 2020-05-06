@@ -6,7 +6,7 @@ const grocerySchema = Joi.object({
     .min(3)
     .required(),
   quantity: Joi.number()
-    .min(1)
+    .min(0)
     .required(),
   unit: Joi.string()
     .min(1)
