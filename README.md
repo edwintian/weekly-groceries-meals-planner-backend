@@ -4,20 +4,16 @@ IDEA: Meals and groceries shopping planner
 
 This application is for planning grocery shopping as well as meal plan for the upcoming week.
 
-There will be an inventory link to check on the ingredients in the fridge (age?).
+There will be an groceries API to check on the ingredients in the fridge (age?).
 Users can POST, PUT, GET to amend ingredients.
 
-There will be a recipe link to tie the ingredients and their quantity to individual recipes.
+There will be a recipes API to tie the ingredients and their quantity to individual recipes.
 Users can POST, PUT, GET to amend recipes.
 
-There will be a mealplanner link with a form to fill up for all the meals in the upcoming week.
+There will be a mealplanner API with a form to fill up for all the meals in the upcoming week.
 When the form is submitted via POST, we will subtract the ingredients from the DB in the backend, then inform the user if there is sufficient ingredients in the fridge.
 
-Users will not be allowed to POST again to mealplanner link until the week is over (date tracking?).
-In the meantime users will be able to GET the meal plan (saved form function?).
-Before each user POST, we should delete the previous mealplan
-
-There will be login/register links for user/new user.
+There will be login/logout/register API for user/new user.
 All other routes should be protected unless user is authenticated (login) and authorized using jwt.
 
 ----
@@ -47,8 +43,8 @@ Recipes: userIdWithrecipeName|concatenatedIngredients|IsBreakfast
 MealPlans: userId|concatenatedMeals
 
 ----
-Project brief
+PROGRESS THUS FAR
 ----
-1. There will be a demo on Friday after lunch.
-2. The demo should be shown on a deployed environment. Netlify, Express and MongoDb Atlas. 
-Please please remember don’t commit the mongo url of Atlas into github
+1. Has integrated all users login/logout/register API with frontend
+2. Has integrated all CRUD groceries API with frontend
+3. Only managed to integrate CREATE recipes API with frontend
