@@ -4,7 +4,7 @@ const {
   getRecipes,
   createRecipes,
   findAndUpdateRecipes
-} = require("../controllers/Recipes.controller");
+} = require("../controllers/recipes.controller");
 const {requireJsonContent, protectRoute} = require("../utils/helper");
 
 router.get("/", protectRoute, getRecipes);
