@@ -1,5 +1,5 @@
 require("../utils/db");
-const Recipe = require("../models/Recipe.model");
+const Recipe = require("../models/recipe.model");
 const Joi = require("@hapi/joi");
 const RecipeSchema = Joi.object({
   recipeName: Joi.string()
